@@ -1,0 +1,42 @@
+{
+  "name": "SoftWireSTM32",
+  "description": "I2C software library, Ported from LeafLabs Maple to Arduino Core STM32",
+  "version": "1.0.0+20220414143110",
+  "keywords": "I2C, TWI, Arduino, STM32",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/technik-gegg/SoftWireSTM32"
+  },
+  "authors":
+  [
+    {
+      "name": "Technik Gegg",
+      "email": "technik.gegg@gmail.com",
+      "url": "",
+      "maintainer": true
+    },
+    {
+      "name": "Trystan Jones",
+      "email": "crenn6977@gmail.com"
+    },
+    {
+      "name": "gke"
+    },
+    {
+      "name": "ala42"
+    },
+    {
+      "name": "Roger Clark"
+    },
+    {
+      "name": "Brandon Green"
+    }
+
+  ],
+  "license": "GPL V3",
+  "homepage": "https://github.com/technik-gegg/SoftWireSTM32",  
+  "frameworks": "Arduino",
+  "platforms": [ "ststm32" ],
+  "examples": []
+}
