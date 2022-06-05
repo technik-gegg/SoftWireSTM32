@@ -65,20 +65,27 @@ typedef uint8_t pin_t;
 // With the SOFT_FAST setting you can expect a speed of around
 // 240 kHz, with SOFT_STANDARD around 90 kHz on a 72 MHz MCU.
 // This is a feasible speed for driving I2C displays for example.
-// For using this library with other (faster) MCU's, it's best practice 
+// For using this library with other (faster) MCU's, it's best practice
 // to overwrite the I2C_Delay function and set the delay as needed.
-#define SOFT_STANDARD   3    
-#define SOFT_FAST       1     
+#define SOFT_STANDARD   3
+#define SOFT_FAST       1
+#define SOFT_SLOW       5
+
+// the following values defines a Clock-Stretching timeout value
+// in ms. It's being used to interrupt the wait on a stretched SCL clock
+// after that given timeout. Without this timeout a malworking device
+// could make the whole program hang infinite.
+#define STRETCH_TIMEOUT	2000
 
 /**
  * @brief Weakened function for inserting delays after SDA/SCL have been set/reset.
  *        Since this function is declared as WEAK, one can easily overwrite it
  *        and hence setup a different/more precise timing, if needed.
- * 
- * @param loops   The number of iterations (loops). 
- *                Usually the number that's being set in i2c_delay member. 
+ *
+ * @param loops   The number of iterations (loops).
+ *                Usually the number that's being set in i2c_delay member.
  */
-extern WEAK void I2C_Delay(int loops);
+extern WEAK void I2C_Delay(uint16_t loops);
 
 class SoftWire : public WireBase
 {

@@ -1,7 +1,7 @@
 {
   "name": "SoftWireSTM32",
   "description": "I2C software library, Ported from LeafLabs Maple to Arduino Core STM32",
-  "version": "1.0.0+20220414143110",
+  "version": "1.0.1+20220506120000",
   "keywords": "I2C, TWI, Arduino, STM32",
   "repository":
   {

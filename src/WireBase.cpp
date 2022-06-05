@@ -75,10 +75,13 @@ uint8_t WireBase::endTransmission(void) {
     if (tx_buf_overflow) {
         return I2C_DATA_TOO_LONG;
     }
-    process();
+    uint8_t stat = process(); // added 2022-06-05 Technik Gegg
     tx_buf_idx = 0;
     tx_buf_overflow = false;
-    return I2C_OK;
+    return stat; 	// added 2022-06-05 Technik Gegg
+					// returning I2C_OK doesn't reflect the current status (i.e. I2C_NACK_ADDR)
+					// and hence a bus scan will always deliver a found device at the
+					// given address!
 }
 
 //TODO: Add the ability to queue messages (adding a bool to end of function

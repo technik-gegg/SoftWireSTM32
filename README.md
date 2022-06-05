@@ -71,6 +71,15 @@ uint8_t scanI2CDevices()
 
 In case you need a more complex example, have a peek at my [LeoNerd's OLED Module library](https://github.com/technik-gegg/LeoNerd-OLED-Module-Library), which uses an abstration layer on the I2C bus, in order to be able to handle both, software and hardware I2C.
 
+## Recent changes
+
+---
+
+**2022-05-06** V1.0.1
+
+- added some code to make a I2C bus scan work as intended (see comments in *WireBase::endTransmission()*).
+- added a timeout handler in the wait for clock stretching. This will break the wait after 2000 milliseconds by default, in order to prevent the library from hanging infinite. If you need to a longer timeout, change the value in **#define STRETCH_TIMEOUT** in *SoftWire.h*.
+
 ## Credits
 
 ---

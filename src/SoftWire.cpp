@@ -47,7 +47,8 @@
  */
 
 /*
- * Ported to Arduino Core STM32 2022-04-14 Technik Gegg
+ * Ported to Arduino Core STM32 				2022-04-14 Technik Gegg
+ * Added SCL clock stretching timeout handler 	2022-06-05 Technik Gegg
  */
 
 #include "SoftWire.h"
@@ -65,11 +66,13 @@ void SoftWire::set_scl(bool state)
     I2C_Delay(i2c_delay);
 
     digitalWriteFast(scl_pin, state);
-    // Allow for clock stretching - dangerous currently
-    if (state == HIGH)
-    {
-        while (digitalReadFast(scl_pin) == 0)
-                ;
+    // Allow for clock stretching but no longer than STRETCH_TIMEOUT
+    if (state == HIGH) {
+		uint32_t t = millis();
+        while (digitalReadFast(scl_pin) == LOW) {
+			if(millis()-t > STRETCH_TIMEOUT)
+				break;
+		}
     }
 }
 
@@ -105,7 +108,7 @@ bool SoftWire::i2c_get_ack()
     set_sda(HIGH);
     set_scl(HIGH);
 
-    bool ret = (digitalReadFast(sda_pin) == 0);
+    bool ret = (digitalReadFast(sda_pin) == LOW);
     set_scl(LOW);
     return ret;
 }
@@ -250,13 +253,13 @@ void SoftWire::setClock(uint32_t frequencyHz)
 {
     switch (frequencyHz)
     {
-    case 400000:
-        i2c_delay = SOFT_FAST;
-        break;
-    case 100000:
-    default:
-        i2c_delay = SOFT_STANDARD;
-        break;
+		case 400000:
+			i2c_delay = SOFT_FAST;
+			break;
+		case 100000:
+		default:
+			i2c_delay = SOFT_STANDARD;
+			break;
     }
 }
 
